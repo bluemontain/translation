@@ -1,6 +1,5 @@
 {
     "name": "bluemountainteam/translation",
-    "version": "dev-master",
     "minimum-stability": "dev",
     "description": "Translations tools for Laravel applications",
     "license": "MIT",
