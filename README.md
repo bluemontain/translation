@@ -6,19 +6,19 @@ Package for static and dynamic translation within Laravel projects
 
 Require the translation package 
 
-    composer require curunoir/translation
+    composer require BlueMountainTeam/Translation/translation
 
 Add the service provider to your `config/app.php` config file
 
-    'curunoir\translation\TranslationServiceProvider',
+    'BlueMountainTeam\Translation\TranslationServiceProvider',
     
 Add the facade to your aliases in your `config/app.php` config file
 
-    'translationlib' => 'curunoir\translation\Facades\Translation',
+    'translationlib' => 'BlueMountainTeam\Translation\Facades\Translation',
     
 Publish the migrations
 
-    php artisan vendor:publish --provider="curunoir\translation\TranslationServiceProvider"
+    php artisan vendor:publish --provider="BlueMountainTeam\Translation\TranslationServiceProvider"
     
 Run the migrations
 
@@ -47,7 +47,7 @@ the translation middleware:
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         
         // Insert Locale Middleware
-        'locale' => \curunoir\translation\Middlewares\TranslationMiddleware::class
+        'locale' => \BlueMountainTeam\Translation\Middlewares\TranslationMiddleware::class
     ];
 
 Now, in your `app/Http/routes.php` file, insert the middleware and the following Translation method in the route

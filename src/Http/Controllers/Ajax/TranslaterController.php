@@ -1,6 +1,6 @@
 <?php
 
-namespace curunoir\translation\Http\Controllers\Ajax;
+namespace BlueMountainTeam\Translation\Http\Controllers\Ajax;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -11,8 +11,8 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 use Stichoza\GoogleTranslate\TranslateClient;
-use curunoir\translation\Models\Locale;
-use curunoir\translation\Facades\TranslationDyn as TransDynService;
+use BlueMountainTeam\Translation\Models\Locale;
+use BlueMountainTeam\Translation\Facades\TranslationDyn as TransDynService;
 
 class TranslaterController extends BaseController
 {
@@ -28,7 +28,7 @@ class TranslaterController extends BaseController
         if (!isset($inputs['exception'])) {
             $m = "App\\Models\\" . $model;
         } else {
-            $m = "curunoir\\translation\\Models\\Locale";
+            $m = "BlueMountainTeam\\Translation\\Models\\Locale";
         }
 
         if (isset($inputs['locale_id'])):

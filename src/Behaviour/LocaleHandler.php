@@ -1,12 +1,12 @@
 <?php
 
-namespace curunoir\translation\Behaviour;
+namespace BlueMountainTeam\Translation\Behaviour;
 
-use curunoir\translation\Models\Locale;
+use BlueMountainTeam\Translation\Models\Locale;
 /**
  * Trait LocaleHandler
  * Must be used by translations services which have to deal with locales selection from Url, config, cookie, session etc
- * @package curunoir\translation\Behaviour
+ * @package BlueMountainTeam\Translation\Behaviour
  */
 trait LocaleHandler
 {

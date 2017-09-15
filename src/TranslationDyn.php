@@ -1,12 +1,12 @@
 <?php
-namespace curunoir\translation;
+namespace BlueMountainTeam\Translation;
 
 use Illuminate\Contracts\Foundation\Application;
-use curunoir\translation\Models\TranslationDyn As TransDynModel;
-use curunoir\translation\Contracts\Translation as TranslationInterface;
-use curunoir\translation\Behaviour\LocaleHandler;
-use curunoir\translation\Behaviour\CacheHandler;
-use curunoir\translation\Models\Locale;
+use BlueMountainTeam\Translation\Models\TranslationDyn As TransDynModel;
+use BlueMountainTeam\Translation\Contracts\Translation as TranslationInterface;
+use BlueMountainTeam\Translation\Behaviour\LocaleHandler;
+use BlueMountainTeam\Translation\Behaviour\CacheHandler;
+use BlueMountainTeam\Translation\Models\Locale;
 
 class TranslationDyn implements TranslationInterface
 {

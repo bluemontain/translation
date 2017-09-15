@@ -1,8 +1,8 @@
 <?php
-namespace curunoir\translation;
+namespace BlueMountainTeam\Translation;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
-use curunoir\translation\Contracts\Translation as TranslationInterface;
+use BlueMountainTeam\Translation\Contracts\Translation as TranslationInterface;
 
 class TranslationServiceProvider extends ServiceProvider
 {

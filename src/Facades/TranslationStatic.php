@@ -1,6 +1,6 @@
 <?php
 
-namespace curunoir\translation\Facades;
+namespace BlueMountainTeam\Translation\Facades;
 use Illuminate\Support\Facades\Facade;
 
 class TranslationStatic extends Facade

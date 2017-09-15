@@ -6,7 +6,7 @@
  * Time: 16:43
  */
 
-namespace curunoir\translation\Contracts;
+namespace BlueMountainTeam\Translation\Contracts;
 
 use Illuminate\Contracts\Foundation\Application;
 use InvalidArgumentException;

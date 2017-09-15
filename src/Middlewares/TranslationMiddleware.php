@@ -1,13 +1,13 @@
 <?php
 
-namespace curunoir\translation\Middlewares;
+namespace BlueMountainTeam\Translation\Middlewares;
 
 use Closure;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
-use curunoir\Translation\Models\Locale;
-use curunoir\Translation\Facades\TranslationStatic;
+use BlueMountainTeam\Translation\Models\Locale;
+use BlueMountainTeam\Translation\Facades\TranslationStatic;
 
 class TranslationMiddleware
 {

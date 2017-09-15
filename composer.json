@@ -1,5 +1,5 @@
 {
-    "name": "curunoir/translation",
+    "name": "bluemountainteam/translation",
     "minimum-stability": "dev",
     "description": "Translations tools for Laravel applications",
     "license": "MIT",
@@ -29,12 +29,12 @@
     },
     "autoload": {
         "psr-4": {
-            "curunoir\\translation\\": "src/"
+            "BlueMountainTeam\\Translation\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "curunoir\\translation\\Tests\\": "tests/"
+            "BlueMountainTeam\\Translation\\Tests\\": "tests/"
         }
     }
 }

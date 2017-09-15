@@ -1,6 +1,6 @@
 <?php
 
-namespace curunoir\translation\Models;
+namespace BlueMountainTeam\Translation\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

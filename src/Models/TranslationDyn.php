@@ -1,9 +1,9 @@
 <?php
 
-namespace curunoir\translation\Models;
+namespace BlueMountainTeam\Translation\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use curunoir\translation\Models\Locale;
+use BlueMountainTeam\Translation\Models\Locale;
 
 class TranslationDyn extends Model
 {

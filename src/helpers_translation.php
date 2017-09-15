@@ -1,7 +1,7 @@
 <?php
 
-use curunoir\translation\Facades\TranslationStatic;
-use curunoir\translation\Facades\TranslationDyn;
+use BlueMountainTeam\Translation\Facades\TranslationStatic;
+
 use Illuminate\Database\Eloquent\Model;
 
 if (!function_exists('_t')) {

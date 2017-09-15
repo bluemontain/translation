@@ -1,17 +1,17 @@
 <?php
 
-namespace curunoir\translation;
+namespace BlueMountainTeam\Translation;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Contracts\Foundation\Application;
-use curunoir\translation\Models\TranslationStatic As TransStaticModel;
-use curunoir\translation\Contracts\Translation as TranslationInterface;
-use curunoir\translation\Models\Locale;
+use BlueMountainTeam\Translation\Models\TranslationStatic As TransStaticModel;
+use BlueMountainTeam\Translation\Contracts\Translation as TranslationInterface;
+use BlueMountainTeam\Translation\Models\Locale;
 use InvalidArgumentException;
 use Stichoza\GoogleTranslate\TranslateClient;
-use curunoir\translation\Behaviour\LocaleHandler;
-use curunoir\translation\Behaviour\CacheHandler;
+use BlueMountainTeam\Translation\Behaviour\LocaleHandler;
+use BlueMountainTeam\Translation\Behaviour\CacheHandler;
 
 class TranslationStatic implements TranslationInterface
 {

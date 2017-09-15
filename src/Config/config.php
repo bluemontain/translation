@@ -22,7 +22,7 @@ return [
         |
         */
 
-        'locale' => curunoir\translation\Models\Locale::class,
+        'locale' => BlueMountainTeam\Translation\Models\Locale::class,
 
         /*
         |--------------------------------------------------------------------------
@@ -33,7 +33,7 @@ return [
         |
         */
 
-        'translationStatic' => curunoir\translation\Models\TranslationStatic::class,
+        'translationStatic' => BlueMountainTeam\Translation\Models\TranslationStatic::class,
 
         /*
         |--------------------------------------------------------------------------
@@ -44,7 +44,7 @@ return [
         |
         */
 
-        'translationDyn' => curunoir\translation\Models\TranslationDyn::class,
+        'translationDyn' => BlueMountainTeam\Translation\Models\TranslationDyn::class,
 
     ],
 

@@ -6,17 +6,17 @@
  * Time: 08:48
  */
 
-namespace curunoir\translation\Behaviour;
+namespace BlueMountainTeam\Translation\Behaviour;
 
-use curunoir\translation\Models\TranslationDyn;
-use curunoir\translation\Facades\TranslationDyn as TransDynFacade;
+use BlueMountainTeam\Translation\Models\TranslationDyn;
+use BlueMountainTeam\Translation\Facades\TranslationDyn as TransDynFacade;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 
 /**
  * Trait TranslatableModel
  * Handles dynamic translation for models fields
- * @package curunoir\translation\Behaviour
+ * @package BlueMountainTeam\Translation\Behaviour
  */
 trait TranslatableModel
 {
