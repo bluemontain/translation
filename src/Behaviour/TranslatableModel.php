@@ -36,7 +36,7 @@ trait TranslatableModel
     public function addTrad($params)
     {
         $params['locale_id'] = isset($params['locale_id']) ? $params['locale_id'] : 1;
-        $params['model'] = explode('\\', get_class())[2];
+        $params['model'] = $this->getModelName();
         $params['object_id'] = $this->id;
         TransDynFacade::addTrad($params);
     }
