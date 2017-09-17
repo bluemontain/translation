@@ -33,10 +33,12 @@ class TranslationMiddleware
         $forget = false;
         $newCookie = false;
         $routePrefix = TranslationStatic::getRoutePrefix();
+
         if ($request->hasCookie('locale')) {
             $locale = $this->request->cookie('locale');
+
             // We change the cookie value if the user changed its url prefix
-            if($routePrefix != $locale) {
+            if($routePrefix && $routePrefix != $locale) {
                 $forget = true;
                 $locale = $routePrefix;
             }
@@ -44,12 +46,17 @@ class TranslationMiddleware
         else {
             $locale = $routePrefix;
 
-            if(in_array($locale, TranslationStatic::getConfigUntranslatableActions()))
-                return $next($request);
-
-            if(!in_array($locale, array_keys(TranslationStatic::getConfigAllowedLocales())))
+            if($locale == null) {
                 $locale = TranslationStatic::getConfigDefaultLocale();
-            $newCookie = true;
+            }
+            else {
+                if(in_array($locale, TranslationStatic::getConfigUntranslatableActions()))
+                    return $next($request);
+
+                if(!in_array($locale, array_keys(TranslationStatic::getConfigAllowedLocales())))
+                    $locale = TranslationStatic::getConfigDefaultLocale();
+                $newCookie = true;
+            }
         }
 
         TranslationStatic::setLocale($locale);
@@ -68,7 +75,9 @@ class TranslationMiddleware
             return $response->cookie('locale', $locale, 3600);
         elseif($forget)
             return $response->withCookie(\Cookie::forget('locale'));
-        else
+        else {
+
             return $response;
+        }
     }
 }
