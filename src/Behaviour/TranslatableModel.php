@@ -65,7 +65,8 @@ trait TranslatableModel
     {
 
         $params['locale_id'] = isset($params['locale_id']) ? $params['locale_id'] : TransDynFacade::getLocaleIdByCode(App::getLocale());
-        $params['model'] = explode('\\', get_class())[2];
+
+        $params['model'] = $this->getModelName();
 
         if ($this->id)
             $params['object_id'] = $this->id;
@@ -82,7 +83,7 @@ trait TranslatableModel
         // no translation found, we search within models themselves
         $noTrad = $model::find($params['object_id']);
         $arraynoTrad = $noTrad->toArray();
-        
+
         if ($noTrad)
             return $arraynoTrad[$params['field']];
     }
@@ -96,7 +97,7 @@ trait TranslatableModel
     {
         if (!isset($this->fillTrad))
             dd('fillTrad no exist Model');
-        $params['model'] = explode('\\', get_class())[2];
+        $params['model'] = $this->getModelName();
         $trans = [];
         foreach ($this->fillTrad as $key):
             $params['object_id'] = $this->id;
@@ -117,7 +118,7 @@ trait TranslatableModel
                 if ($content) {
                     $tmp = [
                         'field' => $field,
-                        'model' => explode('\\', get_class())[2],
+                        'model' => $this->getModelName(),
                         'locale_id' => $locale_id,
                         'object_id' => $this->id,
                         'content' => $content,
@@ -133,15 +134,15 @@ trait TranslatableModel
     /**
      * Structure attendue de $data :
      * [
-          'title' => [                 // field du tableau $fillTrad
-               '1' => 'Un beau site',  // locale_id => traduction,
-               '2' => 'A beautiful site'
-              ],
-           'description' => [
-              '1' => 'La description du beau site',
-               '2' => 'Beautiful site description'
-               ]
-      ]
+    'title' => [                 // field du tableau $fillTrad
+    '1' => 'Un beau site',  // locale_id => traduction,
+    '2' => 'A beautiful site'
+    ],
+    'description' => [
+    '1' => 'La description du beau site',
+    '2' => 'Beautiful site description'
+    ]
+    ]
      * @param $data
      */
     public function saveTrad(&$data)
@@ -166,7 +167,7 @@ trait TranslatableModel
      * Deletes all dynamic translations for a model line
      */
     public function delTrad(){
-        $t = TranslationDyn::where('model',explode('\\', get_class())[2])
+        $t = TranslationDyn::where('model', $this->getModelName())
             ->where('object_id',$this->id)
             ->delete();
     }
@@ -179,4 +180,10 @@ trait TranslatableModel
         $res = $this->getTrad($params);
         return $res ? $res : $data;
     }
+
+    private function getModelName()
+    {
+        return join('', array_slice(explode('\\', __CLASS__), -1));
+    }
+
 }
