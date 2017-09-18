@@ -17,7 +17,7 @@ class CreateTranslationsdynTable extends Migration
             $table->increments('id');
             $table->integer('locale_id')->index()->unsigned();
             $table->integer('translationsdyn_id')->index()->unsigned()->nullable();
-            $table->longText('content');
+            $table->longText('content')->nullable();
             $table->string('model');
             $table->integer('object_id');
             $table->string('field');
