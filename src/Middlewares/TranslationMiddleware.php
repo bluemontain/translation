@@ -38,22 +38,20 @@ class TranslationMiddleware
             $locale = $this->request->cookie('locale');
 
             // We change the cookie value if the user changed its url prefix
-            if($routePrefix && $routePrefix != $locale) {
+            if ($routePrefix && $routePrefix != $locale) {
                 $forget = true;
                 $locale = $routePrefix;
             }
-        }
-        else {
+        } else {
             $locale = $routePrefix;
 
-            if($locale == null) {
+            if ($locale == null) {
                 $locale = TranslationStatic::getConfigDefaultLocale();
-            }
-            else {
-                if(in_array($locale, TranslationStatic::getConfigUntranslatableActions()))
+            } else {
+                if (in_array($locale, TranslationStatic::getConfigUntranslatableActions()))
                     return $next($request);
 
-                if(!in_array($locale, array_keys(TranslationStatic::getConfigAllowedLocales())))
+                if (!in_array($locale, array_keys(TranslationStatic::getConfigAllowedLocales())))
                     $locale = TranslationStatic::getConfigDefaultLocale();
                 $newCookie = true;
             }
@@ -64,19 +62,20 @@ class TranslationMiddleware
 
         $segment = $this->request->segment(TranslationStatic::getConfigRequestSegment());
 
-        if ($request->path() == '/' )
+        if ($request->path() == '/')
             return $this->redirector->to('/' . $locale);
-        else if(!in_array($segment, array_keys(TranslationStatic::getConfigAllowedLocales())))
-            return $this->redirector->to('/' . $locale . '/' . $request->path() );
+        else if (!in_array($segment, array_keys(TranslationStatic::getConfigAllowedLocales())))
+            return $this->redirector->to('/' . $locale . '/' . $request->path());
 
         // Setting cookie
         $response = $next($request);
-        if($newCookie)
+        if ($newCookie)
             return $response->cookie('locale', $locale, 3600);
-        elseif($forget)
+        elseif ($forget)
             return $response->withCookie(\Cookie::forget('locale'));
         else {
 
             return $response;
         }
     }
+}
