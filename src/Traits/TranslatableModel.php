@@ -6,7 +6,7 @@
  * Time: 08:48
  */
 
-namespace BlueMountainTeam\Translation\Behaviour;
+namespace BlueMountainTeam\Translation\Traits;
 
 use BlueMountainTeam\Translation\Models\TranslationDyn;
 use BlueMountainTeam\Translation\Facades\TranslationDyn as TransDynFacade;
@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Config;
 /**
  * Trait TranslatableModel
  * Handles dynamic translation for models fields
- * @package BlueMountainTeam\Translation\Behaviour
+ * @package BlueMountainTeam\Translation\Traits
  */
 trait TranslatableModel
 {
@@ -133,7 +133,7 @@ trait TranslatableModel
 
     /**
      * Structure attendue de $data :
-     * [
+    [
     'title' => [                 // field du tableau $fillTrad
     '1' => 'Un beau site',  // locale_id => traduction,
     '2' => 'A beautiful site'
@@ -143,7 +143,6 @@ trait TranslatableModel
     '2' => 'Beautiful site description'
     ]
     ]
-     * @param $data
      */
     public function saveTrad(&$data)
     {

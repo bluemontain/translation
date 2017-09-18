@@ -4,8 +4,8 @@ namespace BlueMountainTeam\Translation;
 use Illuminate\Contracts\Foundation\Application;
 use BlueMountainTeam\Translation\Models\TranslationDyn As TransDynModel;
 use BlueMountainTeam\Translation\Contracts\Translation as TranslationInterface;
-use BlueMountainTeam\Translation\Behaviour\LocaleHandler;
-use BlueMountainTeam\Translation\Behaviour\CacheHandler;
+use BlueMountainTeam\Translation\Traits\LocaleHandler;
+use BlueMountainTeam\Translation\Traits\CacheHandler;
 use BlueMountainTeam\Translation\Models\Locale;
 
 class TranslationDyn implements TranslationInterface

@@ -1,12 +1,12 @@
 <?php
 
-namespace BlueMountainTeam\Translation\Behaviour;
+namespace BlueMountainTeam\Translation\Traits;
 
 use BlueMountainTeam\Translation\Models\Locale;
 /**
  * Trait LocaleHandler
  * Must be used by translations services which have to deal with locales selection from Url, config, cookie, session etc
- * @package BlueMountainTeam\Translation\Behaviour
+ * @package BlueMountainTeam\Translation\Traits
  */
 trait LocaleHandler
 {

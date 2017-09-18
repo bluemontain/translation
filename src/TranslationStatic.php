@@ -10,8 +10,8 @@ use BlueMountainTeam\Translation\Contracts\Translation as TranslationInterface;
 use BlueMountainTeam\Translation\Models\Locale;
 use InvalidArgumentException;
 use Stichoza\GoogleTranslate\TranslateClient;
-use BlueMountainTeam\Translation\Behaviour\LocaleHandler;
-use BlueMountainTeam\Translation\Behaviour\CacheHandler;
+use BlueMountainTeam\Translation\Traits\LocaleHandler;
+use BlueMountainTeam\Translation\Traits\CacheHandler;
 
 class TranslationStatic implements TranslationInterface
 {

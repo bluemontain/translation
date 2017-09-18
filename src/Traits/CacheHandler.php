@@ -6,7 +6,7 @@
  * Time: 11:21
  */
 
-namespace BlueMountainTeam\Translation\Behaviour;
+namespace BlueMountainTeam\Translation\Traits;
 
 
 trait CacheHandler

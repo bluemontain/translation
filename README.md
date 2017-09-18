@@ -6,7 +6,7 @@ Package for static and dynamic translation within Laravel projects
 
 Require the translation package 
 
-    composer require BlueMountainTeam/Translation/translation
+    composer require bluemountainteam/translation
 
 Add the service provider to your `config/app.php` config file
 
@@ -30,30 +30,30 @@ Anywhere in your application, either use the the shorthand function
 
     _t('Translate me!')
     
+## Translatable Models
+    
+If you want your models to handle multiple dynamic translations use the Translatable trait
+    
+ 
+    use BlueMountainTeam\Translation\Traits\TranslatableModel;
+    
+    use TranslatableModel;
 
 ## Routes
 
 Include inside your `app/Http/Kernel.php` file, insert
 the translation middleware:
 
-    /**
-     * The application's route middleware.
-     *
-     * @var array
-     */
-    protected $routeMiddleware = [
-        'auth' => \App\Http\Middleware\Authenticate::class,
-        'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
-        
-        // Insert Locale Middleware
-        'locale' => \BlueMountainTeam\Translation\Middlewares\TranslationMiddleware::class
-    ];
 
-Now, in your `app/Http/routes.php` file, insert the middleware and the following Translation method in the route
-group prefix like so:
+    protected $middlewareGroups = [
+            'web' => [
+                \App\Http\Middleware\EncryptCookies::class,
+                ...
+                \BlueMountainTeam\Translation\Middlewares\TranslationMiddleware::class,
 
-    Route::group(['prefix' => Translation::getRoutePrefix(), 'middleware' => ['locale']], function()
+Now, in your `app/Http/routes.php` use prefix
+
+    Route::group(['prefix' => Translation::getRoutePrefix()], function()
     {
         Route::get('home', function ()
         {
