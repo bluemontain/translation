@@ -17,15 +17,46 @@ class TranslationMiddleware
         $this->redirector = $redirector;
         $this->request = $request;
     }
-
     /**
      * Handle an incoming request.
+     *
      *
      * @param  \Illuminate\Http\Request $request
      * @param  \Closure $next
      * @return mixed
      */
     public function handle($request, Closure $next)
+    {
+        if ($request->ajax() || (PHP_SAPI == 'cli' && strpos($_SERVER['argv'][0], 'phpunit')))
+            return $next($request);
+
+        $locale = TranslationStatic::getLocale($request);
+        $this->app->setLocale($locale);
+
+        if (in_array($locale, TranslationStatic::getConfigUntranslatableActions()))
+            return $next($request);
+
+        $segment = $this->request->segment(TranslationStatic::getConfigRequestSegment());
+
+        if ($request->path() == '/')
+            if(!empty(session('locale')))
+                return $this->redirector->to('/' . $locale);
+
+        if (!in_array($segment, array_keys(TranslationStatic::getConfigAllowedLocales())))
+            return $this->redirector->to('/' . $locale . '/' . $request->path());
+
+        return $next($request);
+
+    }
+
+    /**
+     * Deprecated
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Closure $next
+     * @return mixed
+     */
+    public function handleWithCookie($request, Closure $next)
     {
         if ($request->ajax() || (PHP_SAPI == 'cli' && strpos($_SERVER['argv'][0], 'phpunit')))
             return $next($request);
@@ -42,7 +73,8 @@ class TranslationMiddleware
                 $forget = true;
                 $locale = $routePrefix;
             }
-        } else {
+        }
+        else {
             $locale = $routePrefix;
 
             if ($locale == null) {

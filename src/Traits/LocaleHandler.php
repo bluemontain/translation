@@ -12,14 +12,58 @@ trait LocaleHandler
 {
 
     protected   $locale = '';
+    protected   $localeSource = ''; // indicates how the locale was chosen
     protected   $config;
     protected   $request;
     private     $cacheTime = 20;
 
-    public function getLocale()
+    /**
+     * Retrieves the locale from many sources
+     * Already set > session > prefix url > browser header > default conf
+     * @return string
+     */
+    public function getLocale($request = null)
     {
-        if ($this->locale == '')
-            $this->locale = $this->getConfigDefaultLocale();
+        // if already defined returns it
+        if (!empty($this->locale)) {
+            return $this->locale;
+        }
+
+        // first we look on the session
+        if(!empty(session('locale'))) {
+            $this->locale = session('locale');
+            $this->localeSource = 'session';
+            return $this->locale;
+        }
+
+        // if not found we look on the prefix
+        $routePrefix = $this->getRoutePrefix();
+        if(!empty($routePrefix)) {
+            // we check if route prefix is in allowed locales
+            if (in_array($routePrefix, $this->getConfigAllowedLocales())) {
+                $this->locale = $routePrefix;
+                $this->localeSource = 'prefix';
+                return $this->locale;
+            }
+        }
+
+        // if not found we look on browser request headers
+        if($request != null) {
+            $http_header = substr($request->server('HTTP_ACCEPT_LANGUAGE'), 0, 2);
+
+            if (!empty($http_header)) {
+                // we check if route prefix is in allowed locales
+                if (array_key_exists($http_header, $this->getConfigAllowedLocales())) {
+                    $this->locale = $http_header;
+                    $this->localeSource = 'header';
+                    return $this->locale;
+                }
+            }
+        }
+
+        // if not found we look on default config
+        $this->locale = $this->getConfigDefaultLocale();
+        $this->localeSource = 'default';
         return $this->locale;
     }
 
@@ -34,9 +78,9 @@ trait LocaleHandler
 
         $locales = $this->getConfigLocales();
 
-        if (is_array($locales) && in_array($locale, array_keys($locales))) {
+        if (is_array($locales) && in_array($locale, array_keys($locales)))
             return $locale;
-        }
+        return '';
     }
 
     /**
@@ -83,7 +127,6 @@ trait LocaleHandler
         if (is_array($locales) && array_key_exists($code, $locales)) {
             return $locales[$code];
         }
-
         return $code;
     }
 
@@ -154,6 +197,10 @@ trait LocaleHandler
     public function getAppLocale()
     {
         return $this->config->get('app.locale');
+    }
+
+    public function getLocaleSource() {
+        return $this->localeSource;
     }
 
 }

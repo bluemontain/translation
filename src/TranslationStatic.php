@@ -43,7 +43,7 @@ class TranslationStatic implements TranslationInterface
         $this->localeModel      = $app->make($this->getConfigLocaleModel());
         $this->translationModel = $app->make($this->getConfigTranslationModel());
 
-        $this->setLocale($this->getConfigDefaultLocale()); // From the config file, can be changed by cookie within the middleware
+        //$this->setLocale($this->getConfigDefaultLocale()); // From the config file, can be changed by cookie within the middleware
         $this->setCacheTime($this->getConfigCacheTime());
 
     }
