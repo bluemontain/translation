@@ -150,8 +150,11 @@ trait TranslatableModel
             dd('fillTrad no exist Model');
 
         foreach ($this->fillTrad as $key):
+
             if (isset($data[$key])):
                 foreach ($data[$key] as $locale_id => $content):
+                    if($content == null)
+                        $content = '';
                     $params['locale_id'] = $locale_id;
                     $params['content'] = $content;
                     $params['field'] = $key;

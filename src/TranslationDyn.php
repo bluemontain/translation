@@ -49,7 +49,7 @@ class TranslationDyn implements TranslationInterface
     public function addTrad($data)
     {
         if (!isset($data['content']) || !isset($data['model']) || !isset($data['object_id'])):
-            return dd('Error Field Translation Dyn');
+            return dd('addTrad : Error Field Translation Dyn');
         endif;
         $content = $data['content'];
         unset($data['content']);
