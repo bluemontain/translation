@@ -173,11 +173,44 @@ trait TranslatableModel
 
     /**
      * @param $params
+     * @param $data
+     * @return null
      */
     public function getTranslatedAttribute($params, $data)
     {
         $res = $this->getTrad($params);
         return $res ? $res : $data;
+    }
+
+    /**
+     * @param $name
+     * @param $locale
+     * @return translated field for locale, model value if not found
+     */
+    public function getTranslationForLocale($name, $locale)
+    {
+        $params['field'] = $name;
+        $params['locale_id'] = TransDynFacade::getLocaleIdByCode($locale);
+        $params['model'] = $this->getModelName();
+
+        if ($this->id)
+            $params['object_id'] = $this->id;
+        else
+            return null;
+
+        $content = TransDynFacade::getOne($params, $this->localTrad);
+
+        if ($content)
+            return $content;
+
+        $model = get_class();
+        // no translation found, we search within models themselves
+        $noTrad = $model::find($params['object_id']);
+        $arraynoTrad = $noTrad->toArray();
+        if ($noTrad)
+            return $arraynoTrad[$params['field']];
+        else
+            return null;
     }
 
     private function getModelName()
