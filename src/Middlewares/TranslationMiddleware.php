@@ -46,7 +46,8 @@ class TranslationMiddleware
             $locale = $routePrefix;
 
             if ($locale == null) {
-                $locale = TranslationStatic::getConfigDefaultLocale();
+                return $next($request);
+                //$locale = TranslationStatic::getConfigDefaultLocale();
             } else {
                 if (in_array($locale, TranslationStatic::getConfigUntranslatableActions()))
                     return $next($request);
