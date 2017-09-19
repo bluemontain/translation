@@ -40,7 +40,7 @@ trait LocaleHandler
         $routePrefix = $this->getRoutePrefix();
         if(!empty($routePrefix)) {
             // we check if route prefix is in allowed locales
-            if (in_array($routePrefix, $this->getConfigAllowedLocales())) {
+            if (array_key_exists($routePrefix, $this->getConfigAllowedLocales())) {
                 $this->locale = $routePrefix;
                 $this->localeSource = 'prefix';
                 return $this->locale;

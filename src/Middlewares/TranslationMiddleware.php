@@ -33,10 +33,9 @@ class TranslationMiddleware
         $locale = TranslationStatic::getLocale($request);
         $this->app->setLocale($locale);
 
-        if (in_array($locale, TranslationStatic::getConfigUntranslatableActions()))
-            return $next($request);
-
         $segment = $this->request->segment(TranslationStatic::getConfigRequestSegment());
+        if (in_array($segment, TranslationStatic::getConfigUntranslatableActions()))
+            return $next($request);
 
         if ($request->path() == '/')
             if(!empty(session('locale')))
