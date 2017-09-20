@@ -50,7 +50,6 @@ trait LocaleHandler
         // if not found we look on browser request headers
         if($request != null) {
             $http_header = substr($request->server('HTTP_ACCEPT_LANGUAGE'), 0, 2);
-
             if (!empty($http_header)) {
                 // we check if route prefix is in allowed locales
                 if (array_key_exists($http_header, $this->getConfigAllowedLocales())) {
@@ -113,6 +112,19 @@ trait LocaleHandler
         return $this->config->get('translation.allowed_locales');
     }
 
+    /**
+     * Returns the array of allowed locales in config which also exist in current database
+     */
+    public function getExistingAllowedLocales()
+    {
+        $existing_allowed = [];
+        foreach($this->config->get('translation.allowed_locales') as $key => $allowed_locale) {
+            $idLocale = $this->getLocaleIdByCode($key);
+            if($idLocale != null)
+                $existing_allowed[$key] = $allowed_locale;
+        }
+        return $existing_allowed;
+    }
     /**
      * Returns a the english name of the locale code entered from the config file.
      *
