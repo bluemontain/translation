@@ -10,6 +10,7 @@ namespace BlueMountainTeam\Translation\Contracts;
 
 use Illuminate\Contracts\Foundation\Application;
 use InvalidArgumentException;
+use BlueMountainTeam\Translation\Models\Locale;
 
 interface Translation
 {
@@ -63,5 +64,13 @@ interface Translation
      * @param string $code
      */
     public function setLocale($code = '');
+
+    /**
+     * Translates all existing words to another locale
+     * @param Locale $sourceLocale
+     * @param Locale $targetLocale
+     * @return mixed
+     */
+    public function translatesAll($targetLocaleId, $sourceLocaleId = null);
 
 }

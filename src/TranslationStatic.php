@@ -55,14 +55,15 @@ class TranslationStatic implements TranslationInterface
      */
     public function translate($text, $lang = NULL, $parameters = null)
     {
+
         // Make sure $text is actually a string and not and object / int
         $this->validateText($text);
 
         if (!is_null($lang)) {
-            $localeModel = $this->firstOrCreateLocale($lang);
+            //$localeModel = $this->firstOrCreateLocale($lang);
         } else {
             $lang = $this->getLocale();
-            $localeModel = $this->firstOrCreateLocale($lang);
+            //$localeModel = $this->firstOrCreateLocale($lang);
         }
 
         if($lang == $this->getConfigDefaultLocale())
@@ -263,6 +264,33 @@ class TranslationStatic implements TranslationInterface
     public function getConfigUntranslatableActions()
     {
         return $this->config->get('translation.untranslatable_actions');
+    }
+
+    /**
+     * Translates all existing words to another locale
+     * @param Locale $sourceLocale
+     * @param Locale $targetLocale
+     */
+    public function translatesAll($targetLocaleId, $sourceLocaleId = null)
+    {
+        if(empty($targetLocaleId) )
+            return null;
+
+        if($sourceLocaleId == null) {
+            $sourceLocaleId =  $this->getConfigDefaultLocaleId();
+        }
+        $targetLocale = $this->localeModel->where([
+            'id' => $targetLocaleId,
+            'activ' => 1
+        ])->first();
+
+        $translationsStatic = TransStaticModel::where('locale_id', $sourceLocaleId)->get();
+        $i = 0;
+        foreach($translationsStatic as $trans) {
+            $this->addTrad($trans->translation, $targetLocale->code);
+            $i++;
+        }
+        return $i;
     }
 
 }

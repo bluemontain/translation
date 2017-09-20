@@ -134,4 +134,37 @@ class TranslationDyn implements TranslationInterface
         return $this->config->get('translation.models.translationDyn', Models\TranslationDyn::class);
     }
 
+    /**
+     * Translates all existing words to another locale
+     * @param Locale $sourceLocale
+     * @param Locale $targetLocale
+     */
+    public function translatesAll($targetLocaleId, $sourceLocaleId = null)
+    {
+        if(empty($targetLocaleId) )
+            return null;
+
+        if($sourceLocaleId == null) {
+            $sourceLocaleId =  $this->getConfigDefaultLocaleId();
+        }
+
+        $translationsDyn = TransDynModel::where('locale_id', $sourceLocaleId)->get();
+        $i = 0;
+        foreach($translationsDyn as $trans) {
+
+            $tmp = [
+                'field' => $trans->field,
+                'model' => $trans->model,
+                'locale_id' => $targetLocaleId,
+                'object_id' => $trans->object_id,
+                'content' => $trans->content,
+                'translationsdyn_id' => $trans->id,
+            ];
+            $new = TransDynModel::create($tmp);
+
+            $i++;
+        }
+        return $i;
+    }
+
 }
