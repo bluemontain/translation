@@ -17,6 +17,7 @@ class Locale extends Model
         'lang_code',
         'name',
         'display_name',
+        'iso'
     ];
 
     private static $_instance = [];
