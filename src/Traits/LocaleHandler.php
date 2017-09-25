@@ -16,6 +16,7 @@ trait LocaleHandler
     protected   $config;
     protected   $request;
     private     $cacheTime = 20;
+    protected   $localesCache = null;
 
     /**
      * Retrieves the locale from many sources
@@ -148,14 +149,18 @@ trait LocaleHandler
      */
     public function getLocaleIdByCode($code)
     {
-        $locale = $this->localeModel->where([
-            'code' => $code,
-            'activ' => 1
-        ])->first();
-        if(!$locale)
-            return null;
+        // first look on cache
+        if($this->localesCache != null)
+            return isset($this->localesCache[$code]) ? $this->localesCache[$code] : null;
         else
-            return $locale->id;
+        {
+            $locales = $this->localeModel->get();
+
+            foreach($locales as $l)
+                $this->localesCache[$l->code] = $l->id;
+
+            return isset($this->localesCache[$code]) ? $this->localesCache[$code] : null;
+        }
     }
 
     /**
