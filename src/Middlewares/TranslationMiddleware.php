@@ -37,15 +37,16 @@ class TranslationMiddleware
         if (in_array($segment, TranslationStatic::getConfigUntranslatableActions()))
             return $next($request);
 
-        if ($request->path() == '/')
-            if(!empty(session('locale')))
-                return $this->redirector->to('/' . $locale);
+        if ($request->path() == '/' && !empty(session('locale'))) {
+            $request->session()->reflash();
+            return $this->redirector->to('/' . $locale);
+        }
 
-        if (!in_array($segment, array_keys(TranslationStatic::getConfigAllowedLocales())))
+        if (!in_array($segment, array_keys(TranslationStatic::getConfigAllowedLocales()))) {
+            $request->session()->reflash();
             return $this->redirector->to('/' . $locale . '/' . $request->path());
+        }
 
         return $next($request);
-
     }
-
 }
