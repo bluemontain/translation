@@ -44,7 +44,7 @@ class TranslationMiddleware
 
         if (!in_array($segment, array_keys(TranslationStatic::getConfigAllowedLocales()))) {
             $request->session()->reflash();
-            return $this->redirector->to('/' . $locale . '/' . $request->path());
+            return $this->redirector->to('/' . $locale . $request->getRequestUri());
         }
 
         return $next($request);
