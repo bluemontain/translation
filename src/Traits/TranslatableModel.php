@@ -221,4 +221,25 @@ trait TranslatableModel
         return join('', array_slice(explode('\\', __CLASS__), -1));
     }
 
+    /**
+     * Get an array with the translated values of a given column.
+     *
+     * @param  string  $column
+     * @param  string|null  $key
+     * @return \Illuminate\Support\Collection
+     */
+    public static function pluckTrad($column, $key = null)
+    {
+        $model = get_class();
+        $resultsSelect  = $model::get();
+        $results        = array();
+        foreach($resultsSelect as $value) {
+            if($key !== null)
+                $results[$value->{$key}] = $value->{$column};
+            else
+                $results[] = $value->{$column};
+        }
+        return collect($results);
+    }
+
 }

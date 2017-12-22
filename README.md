@@ -38,6 +38,8 @@ If you want your models to handle multiple dynamic translations use the Translat
     use BlueMountainTeam\Translation\Traits\TranslatableModel;
     
     use TranslatableModel;
+    
+    MyModel::pluckTrad();
 
 ## Routes
 
