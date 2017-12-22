@@ -9,6 +9,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use BlueMountainTeam\Translation\Models\TranslationStatic As TransStaticModel;
 
 use Stichoza\GoogleTranslate\TranslateClient;
 use BlueMountainTeam\Translation\Models\Locale;
@@ -21,21 +22,24 @@ class TranslaterController extends BaseController
     /**
      * @return mixed
      */
-    public function postQuickUpdate()
+    public function quickUpdate()
     {
         $inputs = Input::all();
         $model = $name_model = $inputs['model'];
+
         if (!isset($inputs['exception'])) {
-            $m = "App\\Models\\" . $model;
+//            $m = "App\\Models\\" . $model;
+            $m = 'TransStaticModel';
         } else {
             $m = "BlueMountainTeam\\Translation\\Models\\Locale";
         }
 
-        if (isset($inputs['locale_id'])):
+        if (isset($inputs['locale_id'])) {
             $model = $m::where($inputs['column'], $inputs['pk'])
                 ->where('locale_id', $inputs['locale_id'])
                 ->first();
-        elseif (isset($inputs['lang'])):
+        }
+        elseif (isset($inputs['lang'])) {
             $locale_id = Locale::where('code', session('code'))->first()->id;
             $params = [
                 'model' => $name_model,
@@ -46,9 +50,19 @@ class TranslaterController extends BaseController
             ];
             $model = TransDynService::addTrad($params);
             return $model;
-        else:
-            $model = $m::find($inputs['pk']);
-        endif;
+        }
+        else {
+            $mode = $inputs['mode'];
+            if ($mode == 'edit')
+                $model = TransStaticModel::find($inputs['pk']);
+            else {
+                $locale_id = $inputs['locale'];
+                $translation_id = $inputs['pk'];
+                $model = new TransStaticModel();
+                $model->locale_id       = $locale_id;
+                $model->translation_id  = $translation_id;
+            }
+        }
 
         if ($name_model == "Setting") {
             Cache::forget('settings');
